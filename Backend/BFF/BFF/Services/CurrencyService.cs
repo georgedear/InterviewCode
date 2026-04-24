@@ -26,7 +26,7 @@ public class CurrencyService : ICurrencyService
     {
         var exchangeRates = (await _currencyRepository.GetMockCurrentExchangeRates(from, to)).ToList();
 
-        if (exchangeRates.Count == 0) throw new Exception("No exchange rates found");
+        if (exchangeRates.Count == 0) throw new Exception("No exchange rate found");
 
         if (exchangeRates.Count > 1) throw new Exception("More than one exchange rate found");
 

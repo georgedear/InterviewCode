@@ -24,8 +24,8 @@ public class CurrencyController : ControllerBase
     }
 
     [HttpGet("GetExchangeRate")]
-    public async Task<ExchangeRateDto> GetExchangeRate([FromQuery] [Required] string from,
-        [FromQuery] [Required] string to)
+    public async Task<ExchangeRateDto> GetExchangeRate(
+        [FromQuery] [Required] string from, [FromQuery] [Required] string to)
     {
         var exchangeRate = await _currencyService.GetExchangeRate(from, to);
         return new ExchangeRateDto(exchangeRate.From.Value, exchangeRate.To.Value, exchangeRate.Rate);

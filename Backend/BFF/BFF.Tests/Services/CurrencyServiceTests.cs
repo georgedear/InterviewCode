@@ -126,7 +126,7 @@ public class CurrencyServiceTests
 
         // Assert
         var exception = await Assert.ThrowsAsync<Exception>(action);
-        Assert.Equal("No exchange rates found", exception.Message);
+        Assert.Equal("No exchange rate found", exception.Message);
     }
 
     [Fact]
