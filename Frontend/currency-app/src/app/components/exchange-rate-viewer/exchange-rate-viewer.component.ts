@@ -95,7 +95,6 @@ export class ExchangeRateViewer implements OnInit, OnDestroy {
     }
 
     public ngOnInit(): void {
-        // TODO: Clean this up after debugging
         this._formValues$.subscribe();
     }
 
@@ -116,6 +115,11 @@ export class ExchangeRateViewer implements OnInit, OnDestroy {
 
     private handleFormOnChangeEvent(previousValue: ExchangeRateFormValue, newValue: ExchangeRateFormValue): void {
         if (!newValue.fromCurrency || !newValue.toCurrency) {
+            return;
+        }
+
+        if (newValue.fromCurrency !== previousValue.fromCurrency || newValue.toCurrency !== previousValue.toCurrency) {
+            console.log('currencies changed!')
             return;
         }
 

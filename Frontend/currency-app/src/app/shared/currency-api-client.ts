@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, of } from "rxjs";
+import { Observable } from "rxjs";
 
 export interface ExchangeRate {
     from: string,
@@ -18,7 +18,6 @@ export class CurrencyClient {
     }
 
     public getExchangeRate(fromCurrency: string, toCurrency: string): Observable<ExchangeRate> {
-        // TODO: Replace with api call
-        return of();
+        return this.http.get<ExchangeRate>(`'http://localhost:5233/Currency/GetExchangeRate?from=${fromCurrency}&to=${toCurrency}'`);
     }
 }
