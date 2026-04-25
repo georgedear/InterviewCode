@@ -71,7 +71,7 @@ import { ExchangeRate } from '../../models/exchange-rate';
             <mat-icon>swap_vert</mat-icon>
         </button>
     `,
-    styleUrl: "./exchange-rate-viewer.css"
+    styleUrl: "./exchange-rate-viewer.component.css"
 })
 export class ExchangeRateViewer implements OnInit, OnDestroy {
 
