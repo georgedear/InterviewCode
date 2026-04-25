@@ -4,7 +4,7 @@ import { CurrencyClient } from './shared/currency-api-client';
 import * as AppActions from './store/app.actions';
 import * as AppSelectors from './store/app.selectors';
 import { Store } from '@ngrx/store';
-import { map, Observable, Subject, takeUntil } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -16,10 +16,6 @@ import { map, Observable, Subject, takeUntil } from 'rxjs';
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit, OnDestroy {
-
-  // TODO: Query for all currencies on load/construction
-  // TODO: Push currency codes into store
-  // TODO: Pluck currency codes from store and inject into component
 
   public currencyCodes = signal<string[]>([])
 

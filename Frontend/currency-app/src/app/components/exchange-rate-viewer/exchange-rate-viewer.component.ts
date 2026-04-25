@@ -40,6 +40,9 @@ import { roundNumber } from '../../shared/number-utils';
                 <mat-form-field>
                     <mat-label>Value</mat-label>
                     <input matInput type="number" formControlName="fromValue">
+                    @if (formService.fromValue(form).hasError('required')) {
+                        <mat-error><b>From value</b> is required.</mat-error>
+                    }
                 </mat-form-field>
             </div>
 
@@ -58,7 +61,7 @@ import { roundNumber } from '../../shared/number-utils';
 
                 <mat-form-field>
                     <mat-label>Value</mat-label>
-                    <input matInput type="number" formControlName="toValue">
+                    <input matInput type="number" formControlName="toValue" readonly>
                 </mat-form-field>
             </div>
         </div>
@@ -93,7 +96,7 @@ export class ExchangeRateViewer implements OnInit, OnDestroy {
 
     public ngOnInit(): void {
         // TODO: Clean this up after debugging
-        this._formValues$.subscribe(x => console.log(x));
+        this._formValues$.subscribe();
     }
 
     public ngOnDestroy(): void {
@@ -120,10 +123,8 @@ export class ExchangeRateViewer implements OnInit, OnDestroy {
         if (newValue.fromValue !== null && newValue.fromValue !== previousValue.fromValue) {
             this.form.patchValue({
                 toValue: !!newValue.fromValue ? roundNumber(newValue.fromValue * rate, 2) : 0
-            });
+            }, { emitEvent: false });
             return;
         }
-
-        // TODO: Implement other conditions
     }
 }
