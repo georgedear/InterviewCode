@@ -1,12 +1,12 @@
 import { Component, input, OnDestroy, OnInit, signal } from '@angular/core';
-import { FormsModule, FormGroup } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ExchangeRateConverterFormService, ExchangeRateForm, ExchangeRateFormValue } from './exchange-rate-form';
-import { map, Observable, pairwise, startWith, Subject, takeUntil, tap } from 'rxjs';
+import { Observable, pairwise, startWith, Subject, takeUntil, tap } from 'rxjs';
 import { roundNumber } from '../shared/number-utils';
 
 @Component({
@@ -108,7 +108,7 @@ export class ExchangeRateViewer implements OnInit, OnDestroy {
             toCurrency: fromCurrency,
             fromValue: toValue,
             toValue: fromValue
-        }, { emitEvent: true });
+        }, { emitEvent: false });
     }
 
     private handleFormOnChangeEvent(previousValue: ExchangeRateFormValue, newValue: ExchangeRateFormValue): void {
