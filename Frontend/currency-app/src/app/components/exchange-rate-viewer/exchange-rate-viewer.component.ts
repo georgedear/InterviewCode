@@ -78,11 +78,7 @@ export class ExchangeRateViewer implements OnInit, OnDestroy {
     public form: ExchangeRateForm;
 
     public currencyCodes = input<string[]>();
-    public exchangeRate2 = model<ExchangeRate | null>();
-
-
-    // TODO: Wire this up to use state, ngrx & action to ping api on construction
-    public exchangeRate = signal(1.1);
+    public exchangeRate = model<ExchangeRate | null>();
 
     private _destroying$ = new Subject<void>();
     private _formValues$: Observable<any>;
@@ -123,14 +119,14 @@ export class ExchangeRateViewer implements OnInit, OnDestroy {
         }
 
         if (newValue.fromCurrency !== previousValue.fromCurrency || newValue.toCurrency !== previousValue.toCurrency) {
-            this.exchangeRate2.set({ from: newValue.fromCurrency, to: newValue.toCurrency, rate: 1 })
+            this.exchangeRate.set({ from: newValue.fromCurrency, to: newValue.toCurrency, rate: 1 })
             return;
         }
 
-        const rate = this.exchangeRate();
-        if (newValue.fromValue !== null && newValue.fromValue !== previousValue.fromValue) {
+        const exchange = this.exchangeRate();
+        if (!!exchange && newValue.fromValue !== null && newValue.fromValue !== previousValue.fromValue) {
             this.form.patchValue({
-                toValue: !!newValue.fromValue ? roundNumber(newValue.fromValue * rate, 2) : 0
+                toValue: !!newValue.fromValue ? roundNumber(newValue.fromValue * exchange.rate, 2) : 0
             }, { emitEvent: false });
             return;
         }

@@ -13,8 +13,8 @@ import { Observable, Subject, takeUntil } from 'rxjs';
   template: `
     <exchange-rate-viewer 
       [currencyCodes]="currencyCodes()" 
-      [exchangeRate2]="exchangeRate()" 
-      (exchangeRate2Change)="onExchangeRateSelectionChange($event)" />
+      [exchangeRate]="exchangeRate()" 
+      (exchangeRateChange)="onExchangeRateSelectionChange($event)" />
   `,
   styleUrl: './app.component.css'
 })
