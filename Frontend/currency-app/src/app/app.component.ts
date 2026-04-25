@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { ExchangeRateViewer } from './exchange-rate-viewer/exchange-rate-viewer.component';
+import { ExchangeRateViewer } from './components/exchange-rate-viewer/exchange-rate-viewer.component';
 import { CurrencyClient } from './shared/currency-api-client';
 
 @Component({

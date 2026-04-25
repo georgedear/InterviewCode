@@ -7,7 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ExchangeRateConverterFormService, ExchangeRateForm, ExchangeRateFormValue } from './exchange-rate-form';
 import { Observable, pairwise, startWith, Subject, takeUntil, tap } from 'rxjs';
-import { roundNumber } from '../shared/number-utils';
+import { roundNumber } from '../../shared/number-utils';
 
 @Component({
     selector: 'exchange-rate-viewer',
