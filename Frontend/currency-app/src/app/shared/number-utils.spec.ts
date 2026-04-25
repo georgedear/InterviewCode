@@ -1,6 +1,6 @@
 import { roundNumber } from './number-utils';
 
-fdescribe('roundNumber', () => {
+describe('roundNumber', () => {
 
     it('should round to the specified number of decimal places', () => {
         expect(roundNumber(1.2345, 2)).toBe(1.23);
