@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+import { ExchangeRate } from '../shared/currency-api-client';
 
 export const loadCurrencyCodes = createAction('[App] Load currency codes');
 export const loadCurrencyCodesSuccess = createAction('[App] Successfully loaded currency codes',
@@ -9,6 +10,6 @@ export const loadCurrencyCodesFailed = createAction('[App] Failed to load curren
 export const loadExchangeRate = createAction('[App] Load exchange rate',
     props<{ fromCurrency: string, toCurrency: string }>());
 export const loadExchangeRateSuccess = createAction('[App] Successfully loaded exchange rate',
-    props<{ exchangeRate: any }>()); // TODO: Add the Type here
+    props<{ exchangeRate: ExchangeRate }>());
 export const loadExchangeRateFailed = createAction('[App] Failed to load the exchange rate',
     props<{ error: any }>());
