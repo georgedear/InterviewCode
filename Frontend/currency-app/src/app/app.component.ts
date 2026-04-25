@@ -2,13 +2,12 @@ import { Component, signal } from '@angular/core';
 import { ExchangeRateViewer } from './exchange-rate-viewer/exchange-rate-viewer.component';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [ExchangeRateViewer],
-  template: `
+    selector: 'app-root',
+    imports: [ExchangeRateViewer],
+    template: `
     <exchange-rate-viewer/>
   `,
-  styleUrl: './app.component.css'
+    styleUrl: './app.component.css'
 })
 export class AppComponent {
 

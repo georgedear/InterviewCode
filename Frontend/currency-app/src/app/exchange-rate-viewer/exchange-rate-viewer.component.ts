@@ -7,7 +7,6 @@ import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'exchange-rate-viewer',
-    standalone: true,
     imports: [
         CommonModule,
         FormsModule,
