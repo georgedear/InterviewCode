@@ -3,16 +3,15 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
     selector: 'exchange-rate-viewer',
     imports: [
-        CommonModule,
-        FormsModule,
-        MatFormFieldModule,
-        MatSelectModule
-    ],
+    FormsModule,
+    MatFormFieldModule,
+    MatSelectModule
+],
     template: `
         @let codes = currencyCodes();
 
