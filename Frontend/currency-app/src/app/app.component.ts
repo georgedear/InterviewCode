@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { ExchangeRateViewer } from './components/exchange-rate-viewer/exchange-rate-viewer.component';
-import { CurrencyClient, ExchangeRate } from './shared/currency-api-client';
+import { CurrencyClient } from './shared/currency-api-client';
 import * as AppActions from './store/app.actions';
 import * as AppSelectors from './store/app.selectors';
 import { Store } from '@ngrx/store';
 import { Observable, Subject, takeUntil } from 'rxjs';
+import { ExchangeRate } from './models/exchange-rate';
 
 @Component({
   selector: 'app-root',

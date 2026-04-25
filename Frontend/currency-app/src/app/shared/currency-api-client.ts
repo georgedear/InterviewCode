@@ -1,17 +1,12 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-
-export interface ExchangeRate {
-    from: string,
-    to: string,
-    rate: number
-}
+import { ExchangeRate } from "../models/exchange-rate";
 
 @Injectable()
 export class CurrencyClient {
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) { }
 
     public getCurrencyCodes(): Observable<string[]> {
         return this.http.get<string[]>('http://localhost:5233/Currency/GetCurrencyCodes');

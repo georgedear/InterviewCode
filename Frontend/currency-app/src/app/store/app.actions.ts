@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { ExchangeRate } from '../shared/currency-api-client';
+import { ExchangeRate } from '../models/exchange-rate';
 
 export const loadCurrencyCodes = createAction('[App] Load currency codes');
 export const loadCurrencyCodesSuccess = createAction('[App] Successfully loaded currency codes',

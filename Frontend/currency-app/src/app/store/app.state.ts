@@ -1,4 +1,5 @@
-import { ExchangeRate } from "../shared/currency-api-client"
+import { ExchangeRate } from "../models/exchange-rate"
+
 
 export interface AppState {
     currencyCodes: string[],
