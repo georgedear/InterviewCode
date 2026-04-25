@@ -1,11 +1,13 @@
-import { Component, input, OnInit } from '@angular/core';
+import { Component, input, OnDestroy, OnInit, signal } from '@angular/core';
 import { FormsModule, FormGroup } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ExchangeRateConverterFormService } from './exchange-rate-form';
+import { ExchangeRateConverterFormService, ExchangeRateForm, ExchangeRateFormValue } from './exchange-rate-form';
+import { map, Observable, pairwise, startWith, Subject, takeUntil, tap } from 'rxjs';
+import { roundNumber } from '../shared/number-utils';
 
 @Component({
     selector: 'exchange-rate-viewer',
@@ -67,15 +69,36 @@ import { ExchangeRateConverterFormService } from './exchange-rate-form';
     `,
     styleUrl: "./exchange-rate-viewer.css"
 })
-export class ExchangeRateViewer implements OnInit {
+export class ExchangeRateViewer implements OnInit, OnDestroy {
+
+    public form: ExchangeRateForm;
 
     public currencyCodes = input<string[]>();
-    public form!: FormGroup;
+    // TODO: Wire this up to use state, ngrx & action to ping api on construction
+    public exchangeRate = signal(1.1);
 
-    constructor(public formService: ExchangeRateConverterFormService) { }
+    private _destroying$ = new Subject<void>();
+    private _formValues$: Observable<any>;
+
+    constructor(public formService: ExchangeRateConverterFormService) {
+        this.form = this.formService.buildForm();
+
+        this._formValues$ = this.form.valueChanges
+            .pipe(
+                takeUntil(this._destroying$),
+                startWith(this.form.value),
+                pairwise(),
+                tap(([previous, current]) => this.handleFormOnChangeEvent(previous, current)))
+    }
 
     public ngOnInit(): void {
-        this.form = this.formService.buildForm();
+        // TODO: Clean this up after debugging
+        this._formValues$.subscribe(x => console.log(x));
+    }
+
+    public ngOnDestroy(): void {
+        this._destroying$.next();
+        this._destroying$.complete();
     }
 
     public onSwapButtonClick(): void {
@@ -85,6 +108,22 @@ export class ExchangeRateViewer implements OnInit {
             toCurrency: fromCurrency,
             fromValue: toValue,
             toValue: fromValue
-        }, { emitEvent: false });
+        }, { emitEvent: true });
+    }
+
+    private handleFormOnChangeEvent(previousValue: ExchangeRateFormValue, newValue: ExchangeRateFormValue): void {
+        if (!newValue.fromCurrency || !newValue.toCurrency) {
+            return;
+        }
+
+        const rate = this.exchangeRate();
+        if (newValue.fromValue !== null && newValue.fromValue !== previousValue.fromValue) {
+            this.form.patchValue({
+                toValue: !!newValue.fromValue ? roundNumber(newValue.fromValue * rate, 2) : 0
+            });
+            return;
+        }
+
+        // TODO: Implement other conditions
     }
 }
