@@ -14,6 +14,9 @@ public class CurrencyRepository : ICurrencyRepository
         // Assumed that the call is asynchronous and needs to be awaited
         var records = new List<ExchangeRate>
         {
+            new("GBP", "GBP", 1),
+            new("USD", "USD", 1),
+            new("EUR", "EUR", 1),
             new("GBP", "USD", 1.3m),
             new("USD", "GBP", 0.75m),
             new("GBP", "EUR", 1.15m),

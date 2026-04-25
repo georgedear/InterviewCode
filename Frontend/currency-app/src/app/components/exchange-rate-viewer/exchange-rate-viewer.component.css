@@ -1,0 +1,19 @@
+:host {
+    --standard-gap: 10px;
+
+
+    display: flex;
+    flex-direction: row;
+    gap: var(--standard-gap);
+
+    div.input-container {
+        display: inherit;
+        flex-direction: column;
+
+        div.row {
+            display: inherit;
+            gap: var(--standard-gap);
+        }
+    }
+}
+
