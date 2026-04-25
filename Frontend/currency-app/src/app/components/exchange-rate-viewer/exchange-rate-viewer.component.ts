@@ -1,4 +1,4 @@
-import { Component, input, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, input, model, OnDestroy, OnInit, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ExchangeRateConverterFormService, ExchangeRateForm, ExchangeRateFormValue } from './exchange-rate-form';
 import { Observable, pairwise, startWith, Subject, takeUntil, tap } from 'rxjs';
 import { roundNumber } from '../../shared/number-utils';
+import { ExchangeRate } from '../../shared/currency-api-client';
 
 @Component({
     selector: 'exchange-rate-viewer',
@@ -77,6 +78,9 @@ export class ExchangeRateViewer implements OnInit, OnDestroy {
     public form: ExchangeRateForm;
 
     public currencyCodes = input<string[]>();
+    public exchangeRate2 = model<ExchangeRate | null>();
+
+
     // TODO: Wire this up to use state, ngrx & action to ping api on construction
     public exchangeRate = signal(1.1);
 
@@ -119,7 +123,7 @@ export class ExchangeRateViewer implements OnInit, OnDestroy {
         }
 
         if (newValue.fromCurrency !== previousValue.fromCurrency || newValue.toCurrency !== previousValue.toCurrency) {
-            console.log('currencies changed!')
+            this.exchangeRate2.set({ from: newValue.fromCurrency, to: newValue.toCurrency, rate: 1 })
             return;
         }
 

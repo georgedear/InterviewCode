@@ -18,6 +18,6 @@ export class CurrencyClient {
     }
 
     public getExchangeRate(fromCurrency: string, toCurrency: string): Observable<ExchangeRate> {
-        return this.http.get<ExchangeRate>(`'http://localhost:5233/Currency/GetExchangeRate?from=${fromCurrency}&to=${toCurrency}'`);
+        return this.http.get<ExchangeRate>(`http://localhost:5233/Currency/GetExchangeRate?from=${fromCurrency}&to=${toCurrency}`);
     }
 }

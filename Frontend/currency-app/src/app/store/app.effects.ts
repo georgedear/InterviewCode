@@ -2,7 +2,7 @@ import { CurrencyClient } from './../shared/currency-api-client';
 import { inject, Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Action } from "@ngrx/store";
-import { catchError, map, Observable, of, switchMap } from "rxjs";
+import { catchError, map, Observable, of, switchMap, tap } from "rxjs";
 import * as AppActions from './app.actions';
 
 @Injectable()
@@ -21,8 +21,13 @@ export class Effects {
     loadExchangeRate$: Observable<Action> = createEffect(() => {
         return this._actions.pipe(
             ofType(AppActions.loadExchangeRate),
+            tap(x => console.log('inside effecrts')),
             switchMap(({ fromCurrency, toCurrency }) => this._currencyCient.getExchangeRate(fromCurrency, toCurrency)),
-            map(exchangeRate => AppActions.loadExchangeRateSuccess({ exchangeRate })),
+            map(exchangeRate => {
+                console.log(exchangeRate)
+
+                return AppActions.loadExchangeRateSuccess({ exchangeRate })
+            }),
             catchError(error => of(AppActions.loadExchangeRateFailed({ error }))))
     })
 }
