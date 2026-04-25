@@ -1,2 +1,15 @@
-/* You can add global styles to this file, and also import other style files */
 @import '@angular/material/prebuilt-themes/azure-blue.css';
+/* Icons */
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+/* Hide increment/decrement in Chrome, Safari, Edge */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Hide increment/decrement in Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
