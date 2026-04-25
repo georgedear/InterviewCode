@@ -72,7 +72,7 @@ export class ExchangeRateViewer implements OnInit {
     public currencyCodes = input<string[]>();
     public form!: FormGroup;
 
-    constructor(public formService: ExchangeRateConverterFormService) {}
+    constructor(public formService: ExchangeRateConverterFormService) { }
 
     public ngOnInit(): void {
         this.form = this.formService.buildForm();
@@ -82,9 +82,9 @@ export class ExchangeRateViewer implements OnInit {
         const { fromCurrency, toCurrency, fromValue, toValue } = this.form.value;
         this.form.setValue({
             fromCurrency: toCurrency,
-            toCurrency:   fromCurrency,
-            fromValue:    toValue,
-            toValue:      fromValue
-        });
+            toCurrency: fromCurrency,
+            fromValue: toValue,
+            toValue: fromValue
+        }, { emitEvent: false });
     }
 }
