@@ -1,4 +1,4 @@
-import { Component, input, model, OnDestroy, OnInit, output, signal } from '@angular/core';
+import { Component, effect, input, model, OnDestroy, OnInit, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -86,6 +86,15 @@ export class ExchangeRateViewer implements OnInit, OnDestroy {
     constructor(public formService: ExchangeRateConverterFormService) {
         this.form = this.formService.buildForm();
 
+        effect(() => {
+            const exchange = this.exchangeRate();
+            if (!exchange) {
+                return;
+            }
+
+            this.updateValuesOnNewExchangeRate(exchange)
+        })
+
         this._formValues$ = this.form.valueChanges
             .pipe(
                 takeUntil(this._destroying$),
@@ -130,5 +139,12 @@ export class ExchangeRateViewer implements OnInit, OnDestroy {
             }, { emitEvent: false });
             return;
         }
+    }
+
+    private updateValuesOnNewExchangeRate(exchangeRate: ExchangeRate): void {
+        const formValue = this.form.value;
+        this.form.patchValue({
+            toValue: !!formValue.fromValue ? roundNumber(formValue.fromValue * exchangeRate.rate, 2) : null
+        }, { emitEvent: false });
     }
 }
